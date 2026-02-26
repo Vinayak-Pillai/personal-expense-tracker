@@ -1,7 +1,7 @@
-export function Wallet({ className }: { className?: string }) {
+import Svg, { Circle, Path } from "react-native-svg";
+export function Wallet({ className, color = "currentColor" }: { className?: string, color?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
+    <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -11,17 +11,17 @@ export function Wallet({ className }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      color={color}
     >
-      <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
-      <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
-    </svg>
+      <Path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
+      <Path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
+    </Svg>
   );
 }
 
-export function ArrowDownLeft({ className }: { className?: string }) {
+export function ArrowDownLeft({ className, color = "currentColor" }: { className?: string, color?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
+    <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -31,17 +31,17 @@ export function ArrowDownLeft({ className }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      color={color}
     >
-      <path d="M17 7 7 17" />
-      <path d="M17 17H7V7" />
-    </svg>
+      <Path d="M17 7 7 17" />
+      <Path d="M17 17H7V7" />
+    </Svg>
   );
 }
 
-export function ArrowUpRight({ className }: { className?: string }) {
+export function ArrowUpRight({ className, color = "currentColor" }: { className?: string, color?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
+    <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -51,17 +51,17 @@ export function ArrowUpRight({ className }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      color={color}
     >
-      <path d="M7 7h10v10" />
-      <path d="M7 17 17 7" />
-    </svg>
+      <Path d="M7 7h10v10" />
+      <Path d="M7 17 17 7" />
+    </Svg>
   );
 }
 
-export function TrendingUp({ className }: { className?: string }) {
+export function TrendingUp({ className, color = "currentColor" }: { className?: string, color?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
+    <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -71,17 +71,17 @@ export function TrendingUp({ className }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      color={color}
     >
-      <path d="M16 7h6v6" />
-      <path d="m22 7-8.5 8.5-5-5L2 17" />
-    </svg>
+      <Path d="M16 7h6v6" />
+      <Path d="m22 7-8.5 8.5-5-5L2 17" />
+    </Svg>
   );
 }
 
-export function EllipsisHorizontal({ className }: { className?: string }) {
+export function EllipsisHorizontal({ className, color = "currentColor" }: { className?: string, color?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
+    <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -91,18 +91,18 @@ export function EllipsisHorizontal({ className }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      color={color}
     >
-      <circle cx="12" cy="12" r="1" />
-      <circle cx="19" cy="12" r="1" />
-      <circle cx="5" cy="12" r="1" />
-    </svg>
+      <Circle cx="12" cy="12" r="1" />
+      <Circle cx="19" cy="12" r="1" />
+      <Circle cx="5" cy="12" r="1" />
+    </Svg>
   );
 }
 
-export function ChevronRight({ className }: { className?: string }) {
+export function ChevronRight({ className, color = "currentColor" }: { className?: string, color?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
+    <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -112,9 +112,9 @@ export function ChevronRight({ className }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      color={color}
     >
-      <path d="m9 18 6-6-6-6" />
-    </svg>
+      <Path d="m9 18 6-6-6-6" />
+    </Svg>
   );
 }
-

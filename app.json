@@ -38,7 +38,15 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      [
+        "@morrowdigital/watermelondb-expo-plugin",
+        {
+          "disableJsi": false
+        }
+      ],
+      "@morrowdigital/watermelondb-expo-plugin",
+      "expo-build-properties"
     ],
     "experiments": {
       "typedRoutes": true,

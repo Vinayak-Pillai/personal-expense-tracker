@@ -1,26 +1,27 @@
-import { Link } from "expo-router";
 import { Wallet } from "@components/icons/homepage-icons";
+import { Link } from "expo-router";
+import { Text, View } from "react-native";
 
 export default function Header({ totalBalance = 0 }: { totalBalance: number }) {
   return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h2 className="text-foreground/40 text-xs font-medium">
+    <View>
+      <View className="flex-row justify-between items-center mb-6">
+        <View>
+          <Text className="text-foreground/40 text-sm font-medium">
             Total Balance
-          </h2>
-          <h1 className="text-3xl font-bold text-white mt-1">
+          </Text>
+          <Text className="text-3xl font-bold text-white mt-1">
             ₹
             {totalBalance.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
-          </h1>
-        </div>
+          </Text>
+        </View>
         <Link
           href="/"
-          className="p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition-colors"
+          className="p-2 bg-slate-800 rounded-full active:bg-slate-700"
         >
-          <Wallet className="text-indigo-400 w-6 h-6" />
+          <Wallet className="w-6 h-6" color="#818cf8" />
         </Link>
-      </div>
-    </div>
+      </View>
+    </View>
   );
 }

@@ -1,7 +1,7 @@
-export function Home({ className }: { className?: string }) {
+import Svg, { Circle, Line, Path, Rect } from "react-native-svg";
+export function Home({ className, color = "currentColor" }: { className?: string, color?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
+    <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -11,17 +11,17 @@ export function Home({ className }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      color={color}
     >
-      <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
-      <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-    </svg>
+      <Path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+      <Path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+    </Svg>
   );
 }
 
-export function CreditCard({ className }: { className?: string }) {
+export function CreditCard({ className, color = "currentColor" }: { className?: string, color?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
+    <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -31,17 +31,17 @@ export function CreditCard({ className }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      color={color}
     >
-      <rect width="20" height="14" x="2" y="5" rx="2" />
-      <line x1="2" x2="22" y1="10" y2="10" />
-    </svg>
+      <Rect width="20" height="14" x="2" y="5" rx="2" />
+      <Line x1="2" x2="22" y1="10" y2="10" />
+    </Svg>
   );
 }
 
-export function CirclePlus({ className }: { className?: string }) {
+export function CirclePlus({ className, color = "currentColor" }: { className?: string, color?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
+    <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -51,18 +51,18 @@ export function CirclePlus({ className }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      color={color}
     >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M8 12h8" />
-      <path d="M12 8v8" />
-    </svg>
+      <Circle cx="12" cy="12" r="10" />
+      <Path d="M8 12h8" />
+      <Path d="M12 8v8" />
+    </Svg>
   );
 }
 
-export function ChartPie({ className }: { className?: string }) {
+export function ChartPie({ className, color = "currentColor" }: { className?: string, color?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
+    <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -72,17 +72,17 @@ export function ChartPie({ className }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      color={color}
     >
-      <path d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z" />
-      <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
-    </svg>
+      <Path d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z" />
+      <Path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+    </Svg>
   );
 }
 
-export default function ArrowRightLeft({ className }: { className?: string }) {
+export default function ArrowRightLeft({ className, color = "currentColor" }: { className?: string, color?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
+    <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -92,11 +92,12 @@ export default function ArrowRightLeft({ className }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      color={color}
     >
-      <path d="m16 3 4 4-4 4" />
-      <path d="M20 7H4" />
-      <path d="m8 21-4-4 4-4" />
-      <path d="M4 17h16" />
-    </svg>
+      <Path d="m16 3 4 4-4 4" />
+      <Path d="M20 7H4" />
+      <Path d="m8 21-4-4 4-4" />
+      <Path d="M4 17h16" />
+    </Svg>
   );
 }
