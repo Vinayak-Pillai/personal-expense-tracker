@@ -1,5 +1,11 @@
 import Svg, { Circle, Line, Path, Rect } from "react-native-svg";
-export function Home({ className, color = "currentColor" }: { className?: string, color?: string }) {
+export function Home({
+  className,
+  color = "currentColor",
+}: {
+  className?: string;
+  color?: string;
+}) {
   return (
     <Svg
       width="24"
@@ -19,7 +25,13 @@ export function Home({ className, color = "currentColor" }: { className?: string
   );
 }
 
-export function CreditCard({ className, color = "currentColor" }: { className?: string, color?: string }) {
+export function CreditCard({
+  className,
+  color = "currentColor",
+}: {
+  className?: string;
+  color?: string;
+}) {
   return (
     <Svg
       width="24"
@@ -39,7 +51,13 @@ export function CreditCard({ className, color = "currentColor" }: { className?: 
   );
 }
 
-export function CirclePlus({ className, color = "currentColor" }: { className?: string, color?: string }) {
+export function CirclePlus({
+  className,
+  color = "currentColor",
+}: {
+  className?: string;
+  color?: string;
+}) {
   return (
     <Svg
       width="24"
@@ -60,7 +78,13 @@ export function CirclePlus({ className, color = "currentColor" }: { className?: 
   );
 }
 
-export function ChartPie({ className, color = "currentColor" }: { className?: string, color?: string }) {
+export function ChartPie({
+  className,
+  color = "currentColor",
+}: {
+  className?: string;
+  color?: string;
+}) {
   return (
     <Svg
       width="24"
@@ -80,7 +104,13 @@ export function ChartPie({ className, color = "currentColor" }: { className?: st
   );
 }
 
-export default function ArrowRightLeft({ className, color = "currentColor" }: { className?: string, color?: string }) {
+export default function ArrowRightLeft({
+  className,
+  color = "currentColor",
+}: {
+  className?: string;
+  color?: string;
+}) {
   return (
     <Svg
       width="24"

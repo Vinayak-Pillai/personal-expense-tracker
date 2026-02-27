@@ -15,14 +15,32 @@ export default function Footer() {
       <View className="flex-row justify-evenly items-center h-16 w-full mx-auto px-2 gap-3">
         <Link href={"/" as any}>
           <View className="flex-col items-center justify-center w-16 h-full">
-            <Home className="mb-1 size-5" color={pathname === "/" ? "#818cf8" : "#94a3b8"} />
-            <Text className="text-[10px] font-medium" style={{ color: pathname === "/" ? "#818cf8" : "#94a3b8" }}>Home</Text>
+            <Home
+              className="mb-1 size-5"
+              color={pathname === "/" ? "#818cf8" : "#94a3b8"}
+            />
+            <Text
+              className="text-[10px] font-medium"
+              style={{ color: pathname === "/" ? "#818cf8" : "#94a3b8" }}
+            >
+              Home
+            </Text>
           </View>
         </Link>
-        <Link href={"/accounts" as any}>
+        <Link href={"/accounts"}>
           <View className="flex-col items-center justify-center w-16 h-full">
-            <CreditCard className="mb-1 size-5" color={pathname === "/accounts" ? "#818cf8" : "#94a3b8"} />
-            <Text className="text-[10px] font-medium" style={{ color: pathname === "/accounts" ? "#818cf8" : "#94a3b8" }}>Accounts</Text>
+            <CreditCard
+              className="mb-1 size-5"
+              color={pathname === "/accounts" ? "#818cf8" : "#94a3b8"}
+            />
+            <Text
+              className="text-[10px] font-medium"
+              style={{
+                color: pathname === "/accounts" ? "#818cf8" : "#94a3b8",
+              }}
+            >
+              Accounts
+            </Text>
           </View>
         </Link>
         <Link href={"/add" as any}>
@@ -34,14 +52,34 @@ export default function Footer() {
         </Link>
         <Link href={"/investments" as any}>
           <View className="flex-col items-center justify-center w-16 h-full">
-            <ChartPie className="mb-1 size-5" color={pathname === "/investments" ? "#818cf8" : "#94a3b8"} />
-            <Text className="text-[10px] font-medium" style={{ color: pathname === "/investments" ? "#818cf8" : "#94a3b8" }}>Invest</Text>
+            <ChartPie
+              className="mb-1 size-5"
+              color={pathname === "/investments" ? "#818cf8" : "#94a3b8"}
+            />
+            <Text
+              className="text-[10px] font-medium"
+              style={{
+                color: pathname === "/investments" ? "#818cf8" : "#94a3b8",
+              }}
+            >
+              Invest
+            </Text>
           </View>
         </Link>
         <Link href={"/transactions" as any}>
           <View className="flex-col items-center justify-center w-16 h-full">
-            <ArrowRightLeft className="mb-1 size-5" color={pathname === "/transactions" ? "#818cf8" : "#94a3b8"} />
-            <Text className="text-[10px] font-medium" style={{ color: pathname === "/transactions" ? "#818cf8" : "#94a3b8" }}>History</Text>
+            <ArrowRightLeft
+              className="mb-1 size-5"
+              color={pathname === "/transactions" ? "#818cf8" : "#94a3b8"}
+            />
+            <Text
+              className="text-[10px] font-medium"
+              style={{
+                color: pathname === "/transactions" ? "#818cf8" : "#94a3b8",
+              }}
+            >
+              History
+            </Text>
           </View>
         </Link>
       </View>
