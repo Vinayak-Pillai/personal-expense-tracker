@@ -43,7 +43,7 @@ export default function Footer() {
             </Text>
           </View>
         </Link>
-        <Link href={"/add" as any}>
+        <Link href={"/add-transactions"}>
           <View className="flex-col items-center justify-center w-16 h-full -mt-6">
             <View className="bg-indigo-600 rounded-full p-3 shadow-lg shadow-indigo-900/50 border-4 border-slate-950">
               <CirclePlus className="size-6" color="#ffffff" />

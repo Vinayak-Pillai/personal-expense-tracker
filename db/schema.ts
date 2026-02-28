@@ -9,4 +9,12 @@ export const accounts = sqliteTable("accounts", {
   createdAt: text("created_at").default(new Date().toISOString()),
 });
 
+export const categories = sqliteTable("categories", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  name: text("name").notNull(),
+  isActive: integer("is_active", { mode: "boolean" }).default(true),
+  createdAt: text("created_at").default(new Date().toISOString()),
+});
+
 export type TSelectAccounts = typeof accounts.$inferSelect;
+export type TSelectCategories = typeof categories.$inferSelect;
