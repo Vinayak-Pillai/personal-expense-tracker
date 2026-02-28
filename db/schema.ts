@@ -16,5 +16,20 @@ export const categories = sqliteTable("categories", {
   createdAt: text("created_at").default(new Date().toISOString()),
 });
 
+export const transactions = sqliteTable("transactions", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  accountId: integer("account_id")
+    .notNull()
+    .references(() => accounts.id),
+  categoryId: integer("category_id")
+    .notNull()
+    .references(() => categories.id),
+  amount: real("amount").notNull(),
+  note: text("note"),
+  date: text("date").default(new Date().toLocaleDateString("en-IN")),
+  createdAt: text("created_at").default(new Date().toISOString()),
+});
+
 export type TSelectAccounts = typeof accounts.$inferSelect;
 export type TSelectCategories = typeof categories.$inferSelect;
+export type TSelectTransactions = typeof transactions.$inferSelect;

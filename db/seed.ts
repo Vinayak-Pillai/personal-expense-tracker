@@ -17,7 +17,10 @@ export const insertCategories = async () => {
       .select({ id: categories.id })
       .from(categories);
 
-    if (categoryExists.length > 0) return;
+    if (categoryExists.length > 0) {
+      console.log("Categories already exist");
+      return;
+    }
 
     await db.insert(categories).values(CATEGORIES);
   } catch (error) {
