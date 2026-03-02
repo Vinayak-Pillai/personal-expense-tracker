@@ -3,11 +3,30 @@ import {
   ArrowUpRight,
   ChevronRight,
 } from "@/components/icons/homepage-icons";
-import { INITIAL_TRANSACTIONS } from "@/utils/init-values";
+import { db } from "@/db";
+import { categories, transactions as Transactions } from "@/db/schema";
+import { formatCurrency } from "@/utils/lib";
+import { desc, eq } from "drizzle-orm";
+import { useLiveQuery } from "drizzle-orm/expo-sqlite";
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
 
 export default function RecentTransactions() {
+  const { data: transactions } = useLiveQuery(
+    db
+      .select({
+        id: Transactions.id,
+        type: Transactions.type,
+        amount: Transactions.amount,
+        date: Transactions.date,
+        category: categories.name,
+      })
+      .from(Transactions)
+      .innerJoin(categories, eq(categories.id, Transactions.categoryId))
+      .orderBy(desc(Transactions.id))
+      .limit(10),
+  );
+
   return (
     <View className="mt-4">
       <View className="flex-row justify-between items-center mb-4">
@@ -22,8 +41,8 @@ export default function RecentTransactions() {
         </Link>
       </View>
       <View className="flex-col gap-3">
-        {INITIAL_TRANSACTIONS.map((t) => {
-          const isIncome = t.type === "income";
+        {transactions.map((t) => {
+          const isIncome = t.type === 2;
           return (
             <View
               key={t.id}
@@ -41,17 +60,15 @@ export default function RecentTransactions() {
                 </View>
                 <View>
                   <Text className="text-slate-200 font-medium text-sm">
-                    {t.note || "Transaction"}
+                    {t.category || "Transaction"}
                   </Text>
-                  <Text className="text-slate-500 text-sm">
-                    {new Date(t.date).toLocaleDateString()}
-                  </Text>
+                  <Text className="text-slate-500 text-sm">{t.date}</Text>
                 </View>
               </View>
               <Text
                 className={`font-semibold ${isIncome ? "text-emerald-400" : "text-slate-200"}`}
               >
-                {isIncome ? "+" : "-"}${t.amount.toLocaleString()}
+                {isIncome ? "+" : "-"} ₹{formatCurrency(t.amount)}
               </Text>
             </View>
           );

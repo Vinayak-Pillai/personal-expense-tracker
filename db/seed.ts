@@ -2,17 +2,19 @@ import { db } from ".";
 import { categories } from "./schema";
 
 const CATEGORIES = [
-  { id: 1, name: "Food" },
-  { id: 2, name: "Transport" },
-  { id: 3, name: "Entertainment" },
-  { id: 4, name: "Shopping" },
-  { id: 5, name: "Health" },
-  { id: 6, name: "Education" },
-  { id: 7, name: "Other" },
+  { id: 1, name: "Income", isActive: true },
+  { id: 2, name: "Food" },
+  { id: 3, name: "Transport" },
+  { id: 4, name: "Entertainment" },
+  { id: 5, name: "Shopping" },
+  { id: 6, name: "Health" },
+  { id: 7, name: "Education" },
+  { id: 8, name: "Other" },
 ];
 
 export const insertCategories = async () => {
   try {
+    await db.delete(categories);
     const categoryExists = await db
       .select({ id: categories.id })
       .from(categories);

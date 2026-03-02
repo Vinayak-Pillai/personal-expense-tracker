@@ -1,13 +1,15 @@
 import { db } from "@/db";
 import {
+  accounts as Accounts,
   categories as Category,
+  transactions,
   TSelectAccounts,
   TSelectCategories,
 } from "@/db/schema";
 import { fetchActiveAccounts } from "@/utils/fetch-fns";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { useEffect, useState } from "react";
 import { FlatList, Pressable, Text, TextInput, View } from "react-native";
 import { Calendar } from "../icons/add-transactions-icons";
@@ -29,7 +31,7 @@ const TYPES = [
 
 type TFormValues = {
   type: number;
-  amount: number | null;
+  amount: string;
   categoryId: number | undefined;
   accountId: number | undefined;
   date: Date;
@@ -49,12 +51,13 @@ export default function AddTransactionsForm() {
   const [isDateVisible, setIsDateVisible] = useState(false);
   const [selectedValues, setSelectedValues] = useState<TFormValues>({
     type: 1,
-    amount: null,
+    amount: "",
     categoryId: undefined,
     accountId: undefined,
     date: new Date(),
     note: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleSelectedDate = (date: Date | undefined) => {
     if (!date) return;
@@ -67,28 +70,97 @@ export default function AddTransactionsForm() {
     value: TFormValues[K],
   ) => {
     console.log({ field, value });
-    setSelectedValues((prev) => ({ ...prev, [field]: value }));
+    let updatedSelectValues = { ...selectedValues, [field]: value };
+    if (field === "type") {
+      updatedSelectValues["amount"] = "";
+      updatedSelectValues["categoryId"] = value === 2 ? 1 : undefined;
+    }
+    setSelectedValues(updatedSelectValues);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      const { accountId, categoryId, amount, type, note, date } =
+        selectedValues;
+      const amountNum = Number(amount);
+
+      if (!accountId || !categoryId || !amountNum) {
+        console.log("validation to insert transactions failed");
+        setLoading(false);
+        return;
+      }
+
+      await db.transaction(async (tx) => {
+        const response = await tx
+          .insert(transactions)
+          .values({
+            accountId: Number(accountId),
+            categoryId,
+            type,
+            note,
+            amount: amountNum,
+            date: date.toLocaleDateString(),
+          })
+          .returning({ id: transactions.id });
+
+        if (!response.length || !response[0].id) {
+          console.log("data insertion failed");
+          tx.rollback();
+          setLoading(false);
+
+          return;
+        }
+
+        const balanceUpdate = await tx
+          .update(Accounts)
+          .set({
+            balance:
+              type === 1
+                ? sql`${Accounts.balance} - ${amountNum}`
+                : sql`${Accounts.balance} + ${amountNum}`,
+          })
+          .where(eq(Accounts.id, accountId));
+
+        if (!balanceUpdate.changes) {
+          tx.rollback();
+          setLoading(false);
+
+          return;
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const records = await db
-        .select({ id: Category.id, name: Category.name })
-        .from(Category)
-        .where(eq(Category.isActive, true));
+    const fetchData = async () => {
+      const [categoriesRecords, accountsResponse] = await Promise.all([
+        db.select({ id: Category.id, name: Category.name })
+          .from(Category)
+          .where(eq(Category.isActive, true)),
+        fetchActiveAccounts(),
+      ]);
 
-      console.log({ categories: records });
-      if (!records.length) return;
-      setCategories(records);
+      console.log({ categories: categoriesRecords });
+      if (categoriesRecords.length > 0) {
+        setCategories(categoriesRecords);
+      }
+
+      setAccounts(accountsResponse);
+      const primaryAccount = accountsResponse.find((account) => account.isPrimary);
+      setSelectedValues((prev) => ({ ...prev, accountId: primaryAccount?.id }));
     };
-    fetchCategories();
-    fetchActiveAccounts().then((response) => {
-      console.log({ response });
-      setAccounts(response);
-      const primaryAccount = response.find((account) => account.isPrimary);
-      setSelectedAccountId(primaryAccount?.id);
-    });
+
+    fetchData();
   }, []);
+
+  const isSubmitDisabled =
+    loading || !Number(selectedValues.amount) || !selectedValues.categoryId || !selectedValues.accountId;
 
   return (
     <View className="flex-1 p-4 space-y-6">
@@ -97,18 +169,16 @@ export default function AddTransactionsForm() {
           <Pressable
             key={item.id}
             onPress={() => handleFormChange("type", item.id)}
-            className={`flex-1 py-3 rounded-lg items-center justify-center will-change-variable ${
-              selectedValues.type === item.id
+            className={`flex-1 py-3 rounded-lg items-center justify-center will-change-variable ${selectedValues.type === item.id
                 ? item.styling
                 : "hover:bg-slate-800"
-            }`}
+              }`}
           >
             <Text
-              className={`text-sm font-semibold will-change-variable ${
-                selectedValues.type === item.id
+              className={`text-sm font-semibold will-change-variable ${selectedValues.type === item.id
                   ? "text-white"
                   : "text-slate-400"
-              }`}
+                }`}
             >
               {item.name}
             </Text>
@@ -122,15 +192,14 @@ export default function AddTransactionsForm() {
         </Text>
         <TextInput
           className="bg-transparent text-5xl  text-white"
-          inputMode="numeric"
+          inputMode="decimal"
           placeholder="0.00"
           placeholderTextColor="#717182"
-          value={
-            selectedValues.amount && isNaN(selectedValues.amount)
-              ? "0"
-              : selectedValues.amount?.toString() || ""
-          }
-          onChangeText={(e) => handleFormChange("amount", Number(e))}
+          value={selectedValues.amount}
+          onChangeText={(e) => {
+            const filtered = e.replace(/[^0-9.]/g, "");
+            handleFormChange("amount", filtered);
+          }}
         />
       </View>
 
@@ -142,6 +211,7 @@ export default function AddTransactionsForm() {
           <FlatList
             data={categories}
             horizontal
+            keyExtractor={(item) => item.id.toString()}
             ListFooterComponent={AddCategoryCard}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => {
@@ -167,7 +237,7 @@ export default function AddTransactionsForm() {
         </Text>
         <View className="bg-slate-900 rounded-lg mt-2 justify-center h-14">
           <Picker
-            selectedValue={selectedAccountId}
+            selectedValue={selectedValues.accountId}
             onValueChange={(itemValue) =>
               handleFormChange("accountId", itemValue)
             }
@@ -234,14 +304,15 @@ export default function AddTransactionsForm() {
       </View>
 
       <Pressable
-        disabled={!selectedValues.amount || !selectedValues.categoryId}
+        onPress={handleSubmit}
+        disabled={isSubmitDisabled}
         className={`mt-auto w-full py-4 rounded-lg font-bold text-white shadow-lg flex items-center justify-center gap-2 mt-8 will-change-auto
-                 ${!selectedValues.amount || !selectedValues.categoryId ? "bg-slate-800 text-slate-500 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-500 shadow-indigo-900/50"}`}
+                 ${isSubmitDisabled ? "bg-slate-800 text-slate-500 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-500 shadow-indigo-900/50"}`}
       >
         <Text
-          className={`${!selectedValues.amount || !selectedValues.categoryId ? "bg-slate-800 text-slate-500 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-900/50"}`}
+          className={`${isSubmitDisabled ? "bg-slate-800 text-slate-500 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-900/50"}`}
         >
-          Save Transaction
+          {loading ? "Saving..." : "Save Transaction"}
         </Text>
       </Pressable>
     </View>

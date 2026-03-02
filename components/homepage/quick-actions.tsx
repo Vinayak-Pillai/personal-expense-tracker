@@ -24,11 +24,11 @@ export default function QuickActions() {
               <TrendingUp className="w-6 h-6" color="#8b5cf6" />
             </View>
             <Text className="text-sm text-muted-foreground font-medium leading-none">
-              Invest
+              {"EMI's"}
             </Text>
           </View>
         </Link>
-        <Link href="/">
+        <Link href="/accounts">
           <View className="flex flex-col items-center justify-center gap-2 w-18">
             <View className="w-14 h-14 rounded-2xl bg-action-accounts-bg/20 flex items-center justify-center border border-action-accounts-border/30">
               <Wallet className="w-6 h-6" color="#f59e0b" />

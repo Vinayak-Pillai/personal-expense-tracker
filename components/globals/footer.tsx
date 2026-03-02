@@ -62,7 +62,7 @@ export default function Footer() {
                 color: pathname === "/investments" ? "#818cf8" : "#94a3b8",
               }}
             >
-              Invest
+              {"EMI's"}
             </Text>
           </View>
         </Link>
