@@ -4,6 +4,7 @@ export const accounts = sqliteTable("accounts", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
   balance: real("balance").default(0),
+  type: text({ enum: ["DEBIT", "CREDIT"] }).default("DEBIT"),
   isPrimary: integer("is_primary", { mode: "boolean" }).default(true),
   isActive: integer("is_active", { mode: "boolean" }).default(true),
   createdAt: text("created_at").default(new Date().toISOString()),
@@ -32,5 +33,6 @@ export const transactions = sqliteTable("transactions", {
 });
 
 export type TSelectAccounts = typeof accounts.$inferSelect;
+export type TAddAccounts = typeof accounts.$inferInsert;
 export type TSelectCategories = typeof categories.$inferSelect;
 export type TSelectTransactions = typeof transactions.$inferSelect;

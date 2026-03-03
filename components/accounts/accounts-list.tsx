@@ -59,6 +59,9 @@ export default function AccountsList() {
                       className={`w-6 h-6`}
                       color={item.isPrimary ? "#fff" : "#94A3B8"}
                     />
+                    <Text className="mt-2.5 mb-0.5 bg-white/20 px-2 py-1 rounded-full text-[12px] text-white font-bold uppercase tracking-wider backdrop-blur-sm">
+                      {item.type}
+                    </Text>
                   </View>
                   {item.isPrimary && (
                     <Text className="bg-white/20 px-2 py-1 rounded-full text-[12px] text-white font-bold uppercase tracking-wider backdrop-blur-sm">

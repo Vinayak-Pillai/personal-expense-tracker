@@ -1,18 +1,12 @@
 import { ArrowDownLeft, ArrowUpRight } from "@/components/icons/homepage-icons";
 import { db } from "@/db";
-import { transactions } from "@/db/schema";
+import { accounts, transactions } from "@/db/schema";
 import { formatCurrency } from "@/utils/lib";
-import { sql, sum } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
 import { Text, View } from "react-native";
 
-export default function QuickStats({
-  income,
-  expense,
-}: {
-  income: number;
-  expense: number;
-}) {
+export default function QuickStats() {
   const {
     data: [transactionalData],
   } = useLiveQuery(
@@ -21,7 +15,9 @@ export default function QuickStats({
         expense: sql`SUM(IF(transactions.type=1,transactions.amount,0))`,
         income: sql`SUM(IF(transactions.type=2,transactions.amount,0))`,
       })
-      .from(transactions),
+      .from(transactions)
+      .innerJoin(accounts, eq(accounts.id, transactions.accountId))
+      .where(eq(accounts.type, "DEBIT")),
   );
   return (
     <View className="flex-row gap-3">

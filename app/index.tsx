@@ -15,7 +15,7 @@ export default function Index() {
       style={{ flex: 1, paddingTop: insets.top }}
     >
       <Header />
-      <QuickStats expense={100} income={1000} />
+      <QuickStats />
       <QuickActions />
       <RecentTransactions />
       <Footer />
