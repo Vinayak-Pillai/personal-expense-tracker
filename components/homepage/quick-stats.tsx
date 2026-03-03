@@ -1,5 +1,9 @@
 import { ArrowDownLeft, ArrowUpRight } from "@/components/icons/homepage-icons";
+import { db } from "@/db";
+import { transactions } from "@/db/schema";
 import { formatCurrency } from "@/utils/lib";
+import { sql, sum } from "drizzle-orm";
+import { useLiveQuery } from "drizzle-orm/expo-sqlite";
 import { Text, View } from "react-native";
 
 export default function QuickStats({
@@ -9,6 +13,16 @@ export default function QuickStats({
   income: number;
   expense: number;
 }) {
+  const {
+    data: [transactionalData],
+  } = useLiveQuery(
+    db
+      .select({
+        expense: sql`SUM(IF(transactions.type=1,transactions.amount,0))`,
+        income: sql`SUM(IF(transactions.type=2,transactions.amount,0))`,
+      })
+      .from(transactions),
+  );
   return (
     <View className="flex-row gap-3">
       <View className="flex-1 bg-stat-card-bg p-4 rounded-2xl border border-stat-card-border flex-col justify-between">
@@ -20,7 +34,7 @@ export default function QuickStats({
             Income
           </Text>
           <Text className="text-lg font-bold text-stat-success-text mt-1">
-            +₹{formatCurrency(income)}
+            +₹{formatCurrency(Number(transactionalData?.income) || 0)}
           </Text>
         </View>
       </View>
@@ -33,7 +47,7 @@ export default function QuickStats({
             Expense
           </Text>
           <Text className="text-lg font-bold text-stat-danger-text mt-1">
-            -₹{formatCurrency(expense)}
+            -₹{formatCurrency(Number(transactionalData?.expense) || 0)}
           </Text>
         </View>
       </View>

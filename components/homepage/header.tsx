@@ -1,8 +1,21 @@
+import { db } from "@/db";
+import { accounts } from "@/db/schema";
+import { formatCurrency } from "@/utils/lib";
 import { Wallet } from "@components/icons/homepage-icons";
+import { eq } from "drizzle-orm";
+import { useLiveQuery } from "drizzle-orm/expo-sqlite";
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
 
-export default function Header({ totalBalance = 0 }: { totalBalance: number }) {
+export default function Header() {
+  const {
+    data: [totalBalance],
+  } = useLiveQuery(
+    db
+      .select({ balance: accounts.balance })
+      .from(accounts)
+      .where(eq(accounts.isPrimary, true)),
+  );
   return (
     <View>
       <View className="flex-row justify-between items-center mb-6">
@@ -11,8 +24,7 @@ export default function Header({ totalBalance = 0 }: { totalBalance: number }) {
             Total Balance
           </Text>
           <Text className="text-3xl font-bold text-white mt-1">
-            ₹
-            {totalBalance.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
+            ₹{formatCurrency(totalBalance?.balance || 0)}
           </Text>
         </View>
         <Link

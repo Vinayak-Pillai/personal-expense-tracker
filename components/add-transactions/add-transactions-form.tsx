@@ -42,9 +42,6 @@ export default function AddTransactionsForm() {
   const [categories, setCategories] = useState<
     Omit<TSelectCategories, "isActive" | "createdAt">[]
   >([]);
-  const [selectedAccountId, setSelectedAccountId] = useState<
-    number | undefined
-  >(undefined);
   const [accounts, setAccounts] = useState<
     Omit<TSelectAccounts, "isActive" | "createdAt">[]
   >([]);
@@ -313,7 +310,7 @@ export default function AddTransactionsForm() {
       <Pressable
         onPress={handleSubmit}
         disabled={isSubmitDisabled}
-        className={`mt-auto w-full py-4 rounded-lg font-bold text-white shadow-lg flex items-center justify-center gap-2 mt-8 will-change-auto
+        className={`w-full py-4 rounded-lg font-bold text-white shadow-lg flex items-center justify-center gap-2 mt-auto will-change-auto
                  ${isSubmitDisabled ? "bg-slate-800 text-slate-500 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-500 shadow-indigo-900/50"}`}
       >
         <Text

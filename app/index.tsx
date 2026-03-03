@@ -10,8 +10,11 @@ export default function Index() {
   const insets = useSafeAreaInsets();
 
   return (
-    <View className="flex-1 dark bg-background p-2" style={{ flex: 1, paddingTop: insets.top }}>
-      <Header totalBalance={500} />
+    <View
+      className="flex-1 dark bg-background p-2"
+      style={{ flex: 1, paddingTop: insets.top }}
+    >
+      <Header />
       <QuickStats expense={100} income={1000} />
       <QuickActions />
       <RecentTransactions />
