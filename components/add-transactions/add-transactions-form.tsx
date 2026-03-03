@@ -140,19 +140,21 @@ export default function AddTransactionsForm() {
   useEffect(() => {
     const fetchData = async () => {
       const [categoriesRecords, accountsResponse] = await Promise.all([
-        db.select({ id: Category.id, name: Category.name })
+        db
+          .select({ id: Category.id, name: Category.name })
           .from(Category)
           .where(eq(Category.isActive, true)),
         fetchActiveAccounts(),
       ]);
 
-      console.log({ categories: categoriesRecords });
       if (categoriesRecords.length > 0) {
         setCategories(categoriesRecords);
       }
 
       setAccounts(accountsResponse);
-      const primaryAccount = accountsResponse.find((account) => account.isPrimary);
+      const primaryAccount = accountsResponse.find(
+        (account) => account.isPrimary,
+      );
       setSelectedValues((prev) => ({ ...prev, accountId: primaryAccount?.id }));
     };
 
@@ -160,7 +162,10 @@ export default function AddTransactionsForm() {
   }, []);
 
   const isSubmitDisabled =
-    loading || !Number(selectedValues.amount) || !selectedValues.categoryId || !selectedValues.accountId;
+    loading ||
+    !Number(selectedValues.amount) ||
+    !selectedValues.categoryId ||
+    !selectedValues.accountId;
 
   return (
     <View className="flex-1 p-4 space-y-6">
@@ -169,16 +174,18 @@ export default function AddTransactionsForm() {
           <Pressable
             key={item.id}
             onPress={() => handleFormChange("type", item.id)}
-            className={`flex-1 py-3 rounded-lg items-center justify-center will-change-variable ${selectedValues.type === item.id
+            className={`flex-1 py-3 rounded-lg items-center justify-center will-change-variable ${
+              selectedValues.type === item.id
                 ? item.styling
                 : "hover:bg-slate-800"
-              }`}
+            }`}
           >
             <Text
-              className={`text-sm font-semibold will-change-variable ${selectedValues.type === item.id
+              className={`text-sm font-semibold will-change-variable ${
+                selectedValues.type === item.id
                   ? "text-white"
                   : "text-slate-400"
-                }`}
+              }`}
             >
               {item.name}
             </Text>

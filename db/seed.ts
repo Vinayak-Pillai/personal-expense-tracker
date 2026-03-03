@@ -14,7 +14,6 @@ const CATEGORIES = [
 
 export const insertCategories = async () => {
   try {
-    await db.delete(categories);
     const categoryExists = await db
       .select({ id: categories.id })
       .from(categories);
