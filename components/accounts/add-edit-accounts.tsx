@@ -99,20 +99,6 @@ export default function AddEditAccounts({ onClose }: { onClose?: () => void }) {
           </View>
         </View>
 
-        {/*<View className="flex-row items-center justify-between mt-2">
-          <Text className="text-white text-base font-medium">
-            Primary Account
-          </Text>
-          <Checkbox
-            value={accountDetails.isPrimary}
-            onValueChange={(value) =>
-              setAccountDetails({ ...accountDetails, isPrimary: value })
-            }
-            color={accountDetails.isPrimary ? "#4f46e5" : "#717182"}
-            className="rounded bg-stat-card-bg border-stat-card-border w-5 h-5"
-          />
-        </View>*/}
-
         <TouchableOpacity
           className="bg-indigo-600 p-4 rounded-lg mt-4 active:opacity-80"
           onPress={handleSave}

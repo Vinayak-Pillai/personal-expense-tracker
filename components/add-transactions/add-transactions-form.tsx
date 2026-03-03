@@ -43,7 +43,7 @@ export default function AddTransactionsForm() {
     Omit<TSelectCategories, "isActive" | "createdAt">[]
   >([]);
   const [accounts, setAccounts] = useState<
-    Omit<TSelectAccounts, "isActive" | "createdAt">[]
+    Omit<TSelectAccounts, "isActive" | "createdAt" | "type">[]
   >([]);
   const [isDateVisible, setIsDateVisible] = useState(false);
   const [selectedValues, setSelectedValues] = useState<TFormValues>({

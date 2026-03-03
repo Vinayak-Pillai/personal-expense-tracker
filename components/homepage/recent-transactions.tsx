@@ -9,7 +9,7 @@ import { formatCurrency } from "@/utils/lib";
 import { desc, eq } from "drizzle-orm";
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
 import { Link } from "expo-router";
-import { Text, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
 
 export default function RecentTransactions() {
   const { data: transactions } = useLiveQuery(
@@ -28,7 +28,7 @@ export default function RecentTransactions() {
   );
 
   return (
-    <View className="mt-4">
+    <View className="mt-4 flex-1">
       <View className="flex-row justify-between items-center mb-4">
         <Text className="text-accent-foreground/70 font-semibold text-[12px]">
           Recent Transactions
@@ -40,13 +40,16 @@ export default function RecentTransactions() {
           View All <ChevronRight className="w-3 h-3 ml-0.5" />
         </Link>
       </View>
-      <View className="flex-col gap-3">
-        {transactions.map((t) => {
-          const isIncome = t.type === 2;
+      <FlatList
+        data={transactions}
+        showsVerticalScrollIndicator={false}
+        contentContainerClassName="pb-32"
+        renderItem={({ item }) => {
+          const isIncome = item.type === 2;
           return (
             <View
-              key={t.id}
-              className="bg-slate-900/50 p-3 rounded-xl border border-slate-800/50 flex-row items-center justify-between"
+              key={item.id}
+              className="my-2 bg-slate-900/50 p-3 rounded-xl border border-slate-800/50 flex-row items-center justify-between"
             >
               <View className="flex-row items-center gap-3">
                 <View
@@ -60,20 +63,20 @@ export default function RecentTransactions() {
                 </View>
                 <View>
                   <Text className="text-slate-200 font-medium text-sm">
-                    {t.category || "Transaction"}
+                    {item.category || "Transaction"}
                   </Text>
-                  <Text className="text-slate-500 text-sm">{t.date}</Text>
+                  <Text className="text-slate-500 text-sm">{item.date}</Text>
                 </View>
               </View>
               <Text
                 className={`font-semibold ${isIncome ? "text-emerald-400" : "text-slate-200"}`}
               >
-                {isIncome ? "+" : "-"} ₹{formatCurrency(t.amount)}
+                {isIncome ? "+" : "-"} ₹{formatCurrency(item.amount)}
               </Text>
             </View>
           );
-        })}
-      </View>
+        }}
+      />
     </View>
   );
 }

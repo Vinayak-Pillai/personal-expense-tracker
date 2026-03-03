@@ -50,7 +50,7 @@ export default function Footer() {
             </View>
           </View>
         </Link>
-        <Link href={"/investments" as any}>
+        <Link href={"/emi" as any}>
           <View className="flex-col items-center justify-center w-16 h-full">
             <ChartPie
               className="mb-1 size-5"
