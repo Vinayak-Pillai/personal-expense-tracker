@@ -1,8 +1,14 @@
-import { View } from "react-native";
-import CircleDollarBadge from "../icons/emi-icons";
+import { Pressable, View } from "react-native";
+import {
+  CheckCircle,
+  CircleDollarBadge,
+  Pencil,
+  Trash,
+} from "../icons/emi-icons";
 import { TSelectEmi } from "@/db/schema";
 import { Calendar } from "../icons/add-transactions-icons";
 import { ORDINAL } from "@/utils/lib";
+import { useState } from "react";
 
 export default function EmiCard({
   emi,
@@ -15,6 +21,17 @@ export default function EmiCard({
   isDueSoon: boolean;
   days: number;
 }) {
+  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+
+  const handleDelete = (id: string) => {
+    if (deleteConfirm === id) {
+      // deleteEMI(id);
+      setDeleteConfirm(null);
+    } else {
+      setDeleteConfirm(id);
+      setTimeout(() => setDeleteConfirm(null), 3000);
+    }
+  };
   return (
     <View className="flex items-center justify-between gap-3">
       {/* Left: icon + info */}
@@ -54,6 +71,30 @@ export default function EmiCard({
           </View>
         </View>
       </View>
+      <div className="flex items-center gap-2 flex-shrink-0">
+        <span className="text-white font-bold">
+          ${emi.amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+        </span>
+        <Pressable
+          // onClick={() => openEdit(emi)}
+          className="p-1.5 rounded-lg text-slate-500 hover:text-indigo-400 hover:bg-indigo-500/10 transition-colors"
+        >
+          <Pencil />
+        </Pressable>
+        <Pressable
+          onPress={() => handleDelete(String(emi.id))}
+          className={`p-1.5 rounded-lg transition-colors ${
+            deleteConfirm === String(emi.id)
+              ? "bg-rose-500/20 text-rose-400"
+              : "text-slate-500 hover:text-rose-400 hover:bg-rose-500/10"
+          }`}
+          // title={
+          //   deleteConfirm === String(emi.id) ? "Tap again to confirm" : "Delete"
+          // }
+        >
+          {deleteConfirm === String(emi.id) ? <CheckCircle /> : <Trash />}
+        </Pressable>
+      </div>
     </View>
   );
 }
