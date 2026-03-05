@@ -1,4 +1,4 @@
-import { TAddEmi, TSelectAccounts } from "@/db/schema";
+import { emi, TAddEmi, TSelectAccounts, TSelectEmi } from "@/db/schema";
 import { useEffect, useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import {
@@ -11,6 +11,8 @@ import {
 import { Calendar } from "../icons/add-transactions-icons";
 import { Picker } from "@react-native-picker/picker";
 import { fetchActiveAccounts } from "@/utils/fetch-fns";
+import { db } from "@/db";
+import { useEmi } from "./emi-context";
 
 type TFormValues = {
   name: string;
@@ -18,16 +20,16 @@ type TFormValues = {
   accountId: number;
   date: number;
 };
-export default function AddEditEmi({ onClose }: { onClose?: () => void }) {
-  const [isEditingEmi, setIsEditingEmi] = useState(false);
+export default function AddEditEmi({ onClose }: { onClose: () => void }) {
+  const { isEditingEmi, currentEditEmi, saveEmi } = useEmi();
   const [accounts, setAccounts] = useState<
     Omit<TSelectAccounts, "isActive" | "createdAt" | "type">[]
   >([]);
   const [emiDetails, setEmiDetails] = useState<TFormValues>({
-    name: "",
-    amount: 0,
-    date: 1,
-    accountId: 0,
+    name: currentEditEmi?.name || "",
+    amount: currentEditEmi?.amount || 0,
+    date: currentEditEmi?.date || 1,
+    accountId: currentEditEmi?.accountId || 0,
   });
 
   const handleInputChange = <K extends keyof TFormValues>(
@@ -35,6 +37,27 @@ export default function AddEditEmi({ onClose }: { onClose?: () => void }) {
     value: TFormValues[K],
   ) => {
     setEmiDetails({ ...emiDetails, [field]: value });
+  };
+
+  const handleSave = async () => {
+    try {
+      await saveEmi(
+        {
+          ...emiDetails,
+          ...(currentEditEmi?.id && { id: currentEditEmi?.id }),
+        },
+        currentEditEmi?.id ? "edit" : "add",
+      );
+      // const records = await db
+      //   .insert(emi)
+      //   .values(emiDetails)
+      //   .returning({ id: emi.id });
+      // if (!records?.length) return;
+
+      // onClose();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -83,7 +106,7 @@ export default function AddEditEmi({ onClose }: { onClose?: () => void }) {
                                 border-slate-700"
             placeholder="0.00"
             placeholderTextColor="#717182"
-            value={emiDetails.name}
+            value={String(emiDetails.amount)}
             onChangeText={(e) => handleInputChange("amount", Number(e))}
           />
         </View>
@@ -98,8 +121,8 @@ export default function AddEditEmi({ onClose }: { onClose?: () => void }) {
                                 border-slate-700"
             placeholder="Number b/w 1-31"
             placeholderTextColor="#717182"
-            value={emiDetails.name}
-            onChangeText={(e) => handleInputChange("amount", Number(e))}
+            value={String(emiDetails.date)}
+            onChangeText={(e) => handleInputChange("date", Number(e))}
           />
         </View>
 
@@ -134,7 +157,7 @@ export default function AddEditEmi({ onClose }: { onClose?: () => void }) {
 
         <TouchableOpacity
           className="bg-indigo-600 p-4 rounded-lg mt-4 active:opacity-80"
-          // onPress={handleSave}
+          onPress={handleSave}
         >
           <Text className="text-white text-center font-bold text-lg">
             {isEditingEmi ? "Save Changes" : "Add EMI"}

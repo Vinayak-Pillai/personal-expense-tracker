@@ -11,7 +11,7 @@ export default function EmiSummaryCard({
   emis: TSelectEmi[];
 }) {
   return (
-    <View className="flex flex-1">
+    <View className="flex mb-3">
       <View className="bg-linear-to-br from-indigo-950 via-slate-900 to-slate-900 p-5 rounded-2xl border border-indigo-800/60 shadow-xl">
         <Text className="text-indigo-300 text-sm font-medium mb-1">
           Total Monthly EMI
