@@ -1,11 +1,8 @@
-import { Modal, Pressable, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { CirclePlus } from "../icons/footer-icons";
-import { useState } from "react";
-import AddEditEmi from "./add-edit-emi";
 import { useEmi } from "./emi-context";
 
 export default function EmiHeader() {
-  // const [isAddEmiVisible, setIsAddEmiVisible] = useState(false);
   const { handleEditEmi } = useEmi();
   return (
     <View className="p-4 pt-2">
@@ -18,14 +15,6 @@ export default function EmiHeader() {
           <CirclePlus color="#fff" />
         </Pressable>
       </View>
-      {/*<Modal
-        visible={isAddEmiVisible}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => setIsAddEmiVisible(false)}
-      >
-        <AddEditEmi onClose={() => setIsAddEmiVisible(false)} />
-      </Modal>*/}
     </View>
   );
 }

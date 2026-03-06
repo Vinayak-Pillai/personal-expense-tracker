@@ -1,6 +1,7 @@
-import { emi, TAddEmi, TSelectAccounts, TSelectEmi } from "@/db/schema";
+import { TSelectAccounts } from "@/db/schema";
+import { fetchActiveAccounts } from "@/utils/fetch-fns";
+import { Picker } from "@react-native-picker/picker";
 import { useEffect, useState } from "react";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import {
   Pressable,
   Text,
@@ -8,10 +9,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Calendar } from "../icons/add-transactions-icons";
-import { Picker } from "@react-native-picker/picker";
-import { fetchActiveAccounts } from "@/utils/fetch-fns";
-import { db } from "@/db";
 import { useEmi } from "./emi-context";
 
 type TFormValues = {
@@ -40,6 +37,7 @@ export default function AddEditEmi({ onClose }: { onClose: () => void }) {
   };
 
   const handleSave = async () => {
+    if (!emiDetails.name.trim() || !emiDetails.amount || !emiDetails.accountId || !emiDetails.date) return;
     try {
       await saveEmi(
         {
@@ -48,13 +46,6 @@ export default function AddEditEmi({ onClose }: { onClose: () => void }) {
         },
         currentEditEmi?.id ? "edit" : "add",
       );
-      // const records = await db
-      //   .insert(emi)
-      //   .values(emiDetails)
-      //   .returning({ id: emi.id });
-      // if (!records?.length) return;
-
-      // onClose();
     } catch (error) {
       console.log(error);
     }
@@ -106,8 +97,13 @@ export default function AddEditEmi({ onClose }: { onClose: () => void }) {
                                 border-slate-700"
             placeholder="0.00"
             placeholderTextColor="#717182"
-            value={String(emiDetails.amount)}
-            onChangeText={(e) => handleInputChange("amount", Number(e))}
+            value={emiDetails.amount ? String(emiDetails.amount) : ""}
+            onChangeText={(e) => {
+              const val = Number(e);
+              if (e === "" || !isNaN(val)) {
+                handleInputChange("amount", e === "" ? 0 : val);
+              }
+            }}
           />
         </View>
 
@@ -120,9 +116,15 @@ export default function AddEditEmi({ onClose }: { onClose: () => void }) {
             className="w-full bg-slate-800 border rounded-lg px-4 py-3 text-white placeholder-slate-600 outline-none focus:ring-2 focus:ring-indigo-500
                                 border-slate-700"
             placeholder="Number b/w 1-31"
+            maxLength={2}
             placeholderTextColor="#717182"
-            value={String(emiDetails.date)}
-            onChangeText={(e) => handleInputChange("date", Number(e))}
+            value={emiDetails.date ? String(emiDetails.date) : ""}
+            onChangeText={(e) => {
+              const val = Number(e);
+              if (e === "" || (val >= 1 && val <= 31)) {
+                handleInputChange("date", e === "" ? 0 : val);
+              }
+            }}
           />
         </View>
 

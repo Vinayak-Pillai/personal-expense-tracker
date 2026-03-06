@@ -1,14 +1,13 @@
-import { TSelectEmi } from "@/db/schema";
 import { formatCurrency, ORDINAL } from "@/utils/lib";
 import { Text, View } from "react-native";
-
-// const TODAY = new Date().getDate();
 export default function EmiSummaryCard({
   totalMonthly,
-  emis,
+  totalCount,
+  nextDeductionDate,
 }: {
   totalMonthly: number;
-  emis: TSelectEmi[];
+  totalCount: number;
+  nextDeductionDate: number;
 }) {
   return (
     <View className="flex mb-3">
@@ -17,17 +16,17 @@ export default function EmiSummaryCard({
           Total Monthly EMI
         </Text>
         <Text className="text-3xl font-bold text-white">
-          ${formatCurrency(totalMonthly)}
+          ₹{formatCurrency(totalMonthly)}
         </Text>
         <View className="flex flex-row gap-4 mt-4">
           <View className="flex-1 bg-slate-800/60 rounded-lg p-3">
             <Text className="text-slate-400 text-xs mb-1">Active EMIs</Text>
-            <Text className="text-white font-bold text-lg">{emis.length}</Text>
+            <Text className="text-white font-bold text-lg">{totalCount}</Text>
           </View>
           <View className="flex-1 bg-slate-800/60 rounded-xl p-3">
             <Text className="text-slate-400 text-xs mb-1">Next Deduction</Text>
             <Text className="text-white font-bold text-lg">
-              {emis.length > 0 ? `${ORDINAL(emis[0].date)}` : "—"}
+              {nextDeductionDate ? `${ORDINAL(nextDeductionDate)}` : "—"}
             </Text>
           </View>
         </View>

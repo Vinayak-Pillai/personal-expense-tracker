@@ -1,9 +1,9 @@
-import { createContext, useContext, useState } from "react";
-import AddEditEmi from "./add-edit-emi";
+import { db } from "@/db";
 import { emi, TAddEmi, TSelectEmi } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { db } from "@/db";
+import { createContext, useContext, useState } from "react";
 import { Modal } from "react-native";
+import AddEditEmi from "./add-edit-emi";
 
 type TEmiContext = {
   isEditingEmi: boolean;
@@ -32,25 +32,17 @@ export function EmiProvider({ children }: { children: React.ReactNode }) {
 
   const fetchEmiById = async (value: number) => {
     const [record] = await db
-      .select({
-        id: emi.id,
-        accountId: emi.accountId,
-        amount: emi.amount,
-        name: emi.name,
-        date: emi.date,
-      })
+      .select()
       .from(emi)
       .where(eq(emi.id, value));
 
     if (!record) return;
-    console.log({ record });
     setEmiDetails(record);
     handleEditEmi();
   };
 
   const saveEmi = async (formValue: TAddEmi, type: "add" | "edit") => {
     let record;
-    console.log({ type, formValue });
     if (type === "add") {
       [record] = await db
         .insert(emi)

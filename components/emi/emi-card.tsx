@@ -1,11 +1,10 @@
 import { TSelectEmi } from "@/db/schema";
 import { formatCurrency, ORDINAL } from "@/utils/lib";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { Calendar } from "../icons/add-transactions-icons";
 import {
   CheckCircle,
-  CircleDollarBadge,
   CircleRupeeBadge,
   Pencil,
   Trash,
@@ -25,33 +24,41 @@ export default function EmiCard({
 }) {
   const { fetchEmiById, deleteById } = useEmi();
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null);
+  const deleteTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleDelete = (id: number) => {
     if (deleteConfirm === id) {
       setDeleteConfirm(null);
       deleteById(id);
+      if (deleteTimeoutRef.current) clearTimeout(deleteTimeoutRef.current);
     } else {
       setDeleteConfirm(id);
-      setTimeout(() => setDeleteConfirm(null), 3000);
+      if (deleteTimeoutRef.current) clearTimeout(deleteTimeoutRef.current);
+      deleteTimeoutRef.current = setTimeout(() => setDeleteConfirm(null), 3000);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (deleteTimeoutRef.current) clearTimeout(deleteTimeoutRef.current);
+    };
+  }, []);
   return (
     <View
-      className={`my-3 bg-slate-900 border rounded-2xl p-5 transition-all ${
-        isDueToday
-          ? "border-rose-500/60 shadow-rose-900/30 shadow-lg"
-          : isDueSoon
-            ? "border-amber-500/40"
-            : "border-slate-800"
-      }`}
+      // transition here
+      className={`my-3 bg-slate-900 border rounded-2xl p-5  ${isDueToday
+        ? "border-rose-500/60 shadow-rose-900/30"
+        : isDueSoon
+          ? "border-amber-500/40"
+          : "border-slate-800"
+        }`}
     >
       <View className="flex flex-row items-center justify-between gap-3">
         {/* Left: icon + info */}
         <View className="flex flex-row items-center gap-3 min-w-0 flex-1">
           <View
-            className={`w-11 h-11 rounded-full flex items-center justify-center shrink-0 ${
-              isDueToday ? "bg-rose-500/20" : "bg-indigo-500/15"
-            }`}
+            className={`w-11 h-11 rounded-full flex items-center justify-center shrink-0 ${isDueToday ? "bg-rose-500/20" : "bg-indigo-500/15"
+              }`}
           >
             <CircleRupeeBadge color={isDueToday ? "#fb7185" : "#818cf8"} />
           </View>
@@ -65,13 +72,12 @@ export default function EmiCard({
             <View className="flex flex-row items-center gap-2 mt-0.5 flex-wrap">
               {/* Deduction day badge */}
               <View
-                className={`flex flex-row items-center gap-1 px-2 py-0.5 rounded-full ${
-                  isDueToday
-                    ? "bg-rose-500/20"
-                    : isDueSoon
-                      ? "bg-amber-500/20"
-                      : "bg-slate-800"
-                }`}
+                className={`flex flex-row items-center gap-1 px-2 py-0.5 rounded-full ${isDueToday
+                  ? "bg-rose-500/20"
+                  : isDueSoon
+                    ? "bg-amber-500/20"
+                    : "bg-slate-800"
+                  }`}
               >
                 <Calendar
                   color={
@@ -84,13 +90,12 @@ export default function EmiCard({
                   className="w-3 h-3"
                 />
                 <Text
-                  className={`text-xs font-medium ${
-                    isDueToday
-                      ? "text-rose-400"
-                      : isDueSoon
-                        ? "text-amber-400"
-                        : "text-slate-400"
-                  }`}
+                  className={`text-xs font-medium ${isDueToday
+                    ? "text-rose-400"
+                    : isDueSoon
+                      ? "text-amber-400"
+                      : "text-slate-400"
+                    }`}
                 >
                   {isDueToday ? "Due Today" : `${ORDINAL(emi.date)} · ${days}d`}
                 </Text>
@@ -121,11 +126,10 @@ export default function EmiCard({
           </Pressable>
           <Pressable
             onPress={() => handleDelete(emi.id)}
-            className={`p-1.5 rounded-lg transition-colors ${
-              deleteConfirm === emi.id
-                ? "bg-rose-500/20"
-                : "active:bg-rose-500/10"
-            }`}
+            className={`p-1.5 rounded-lg transition-colors ${deleteConfirm === emi.id
+              ? "bg-rose-500/20"
+              : "active:bg-rose-500/10"
+              }`}
           >
             {deleteConfirm === emi.id ? (
               <CheckCircle

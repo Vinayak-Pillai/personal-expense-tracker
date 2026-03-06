@@ -7,6 +7,7 @@ import { db } from "@/db";
 import { accounts, emi } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
+import { useMemo } from "react";
 import { FlatList, Text } from "react-native";
 
 const TODAY = new Date().getDate();
@@ -42,17 +43,39 @@ export default function EMI() {
       .orderBy(desc(emi.date)),
   );
 
+  const emiSummary = useMemo(() => {
+    const summary = {
+      amount: 0,
+      date: Infinity,
+      minimalDate: Infinity,
+      nextDeductionDate: 0,
+    };
+
+    for (let i = emiRecords.length - 1; i >= 0; i--) {
+      summary.amount += emiRecords[i].amount;
+      if (emiRecords[i].date > TODAY && emiRecords[i].date <= 31) {
+        summary.date = Math.min(emiRecords[i].date, summary.date);
+      } else {
+        summary.minimalDate = Math.min(summary.minimalDate, emiRecords[i].date);
+      }
+    }
+
+    if (summary.date !== Infinity) {
+      summary.nextDeductionDate = summary.date;
+    } else if (summary.minimalDate !== Infinity) {
+      summary.nextDeductionDate = summary.minimalDate;
+    }
+    return summary;
+  }, [emiRecords]);
+
   return (
     <SafeContainer>
       <EmiProvider>
         <EmiHeader />
         <EmiSummaryCard
-          totalMonthly={3}
-          emis={[
-            { name: "emi 1", id: 1, amount: 10, date: 2, accountId: 1 },
-            { name: "emi 2", id: 1, amount: 10, date: 2, accountId: 1 },
-            { name: "emi 3", id: 1, amount: 10, date: 2, accountId: 1 },
-          ]}
+          totalMonthly={emiSummary.amount}
+          totalCount={emiRecords.length}
+          nextDeductionDate={emiSummary.nextDeductionDate}
         />
         <FlatList
           data={emiRecords}
