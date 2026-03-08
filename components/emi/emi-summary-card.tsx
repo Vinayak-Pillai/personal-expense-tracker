@@ -15,17 +15,17 @@ export default function EmiSummaryCard({
         <Text className="text-indigo-300 text-sm font-medium mb-1">
           Total Monthly EMI
         </Text>
-        <Text className="text-3xl font-bold text-white">
+        <Text className="text-3xl font-bold text-foreground">
           ₹{formatCurrency(totalMonthly)}
         </Text>
         <View className="flex flex-row gap-4 mt-4">
-          <View className="flex-1 bg-slate-800/60 rounded-lg p-3">
-            <Text className="text-slate-400 text-xs mb-1">Active EMIs</Text>
-            <Text className="text-white font-bold text-lg">{totalCount}</Text>
+          <View className="flex-1 bg-secondary/60 rounded-lg p-3">
+            <Text className="text-muted-foreground text-xs mb-1">Active EMIs</Text>
+            <Text className="text-foreground font-bold text-lg">{totalCount}</Text>
           </View>
-          <View className="flex-1 bg-slate-800/60 rounded-xl p-3">
-            <Text className="text-slate-400 text-xs mb-1">Next Deduction</Text>
-            <Text className="text-white font-bold text-lg">
+          <View className="flex-1 bg-secondary/60 rounded-xl p-3">
+            <Text className="text-muted-foreground text-xs mb-1">Next Deduction</Text>
+            <Text className="text-foreground font-bold text-lg">
               {nextDeductionDate ? `${ORDINAL(nextDeductionDate)}` : "—"}
             </Text>
           </View>

@@ -81,7 +81,7 @@ export default function EMI() {
         <FlatList
           data={emiRecords}
           ListHeaderComponent={
-            <Text className="text-slate-400 font-semibold text-sm uppercase tracking-widest py-3">
+            <Text className="text-muted-foreground font-semibold text-sm uppercase tracking-widest py-3">
               {"ALL EMI's"}
             </Text>
           }

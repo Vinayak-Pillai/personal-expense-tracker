@@ -20,12 +20,12 @@ const TYPES = [
   {
     id: 1,
     name: "Expense",
-    styling: "bg-rose-600 text-white shadow-lg shadow-rose-900/40",
+    styling: "bg-rose-600 text-foreground shadow-lg shadow-rose-900/40",
   },
   {
     id: 2,
     name: "Income",
-    styling: "bg-emerald-600 text-white shadow-lg shadow-emerald-900/40",
+    styling: "bg-emerald-600 text-foreground shadow-lg shadow-emerald-900/40",
   },
 ];
 
@@ -166,20 +166,20 @@ export default function AddTransactionsForm() {
 
   return (
     <View className="flex-1 p-4 space-y-6">
-      <View className="bg-slate-900 p-1 mb-6 rounded-lg flex-row w-full">
+      <View className="bg-card p-1 mb-6 rounded-lg flex-row w-full">
         {TYPES.map((item) => (
           <Pressable
             key={item.id}
             onPress={() => handleFormChange("type", item.id)}
             className={`flex-1 py-3 rounded-lg items-center justify-center will-change-auto ${selectedValues.type === item.id
               ? item.styling
-              : "hover:bg-slate-800"
+              : "hover:bg-secondary"
               }`}
           >
             <Text
               className={`text-sm font-semibold will-change-variable ${selectedValues.type === item.id
-                ? "text-white"
-                : "text-slate-400"
+                ? "text-foreground"
+                : "text-muted-foreground"
                 }`}
             >
               {item.name}
@@ -189,11 +189,11 @@ export default function AddTransactionsForm() {
       </View>
 
       <View className="flex-col items-center gap-2 mb-6">
-        <Text className="text-slate-500 text-2xl font-bold align-top mt-2 inline-block">
+        <Text className="text-muted-foreground text-2xl font-bold align-top mt-2 inline-block">
           ₹
         </Text>
         <TextInput
-          className="bg-transparent text-5xl  text-white"
+          className="bg-transparent text-5xl  text-foreground"
           inputMode="decimal"
           placeholder="0.00"
           placeholderTextColor="#717182"
@@ -207,7 +207,7 @@ export default function AddTransactionsForm() {
 
       <View className="mb-6">
         <View className="mb-2">
-          <Text className="text-sm font-semibold text-slate-400 ml-1 mb-2 uppercase tracking-wider">
+          <Text className="text-sm font-semibold text-muted-foreground ml-1 mb-2 uppercase tracking-wider">
             Category
           </Text>
           <FlatList
@@ -234,10 +234,10 @@ export default function AddTransactionsForm() {
 
       {/*Account*/}
       <View className="mb-6">
-        <Text className="text-sm font-semibold text-slate-400 ml-1 uppercase tracking-wider">
+        <Text className="text-sm font-semibold text-muted-foreground ml-1 uppercase tracking-wider">
           Account
         </Text>
-        <View className="bg-slate-900 rounded-lg mt-2 justify-center h-14">
+        <View className="bg-card rounded-lg mt-2 justify-center h-14">
           <Picker
             selectedValue={selectedValues.accountId}
             onValueChange={(itemValue) =>
@@ -264,20 +264,20 @@ export default function AddTransactionsForm() {
 
       <View className="flex flex-row gap-4 mb-6 w-full">
         <View className="flex-1 my-2">
-          <Text className="text-sm font-semibold text-slate-400 ml-1 uppercase tracking-wider">
+          <Text className="text-sm font-semibold text-muted-foreground ml-1 uppercase tracking-wider">
             Date
           </Text>
           <View className="relative mt-2">
             <Pressable
-              className="bg-slate-900 rounded-lg justify-center h-14 px-4"
+              className="bg-card rounded-lg justify-center h-14 px-4"
               onPress={() => setIsDateVisible(true)}
             >
-              <Text className="text-white">
+              <Text className="text-foreground">
                 {selectedValues.date.toLocaleDateString("en-IN")}
               </Text>
             </Pressable>
             <View className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-              <Calendar className="w-5 h-5 text-slate-500" color="#94a3b8" />
+              <Calendar className="w-5 h-5 text-muted-foreground" color="#94a3b8" />
             </View>
             {isDateVisible && (
               <DateTimePicker
@@ -292,11 +292,11 @@ export default function AddTransactionsForm() {
           </View>
         </View>
         <View className="flex-1 my-2">
-          <Text className="text-sm font-semibold text-slate-400 ml-1 uppercase tracking-wider">
+          <Text className="text-sm font-semibold text-muted-foreground ml-1 uppercase tracking-wider">
             Note
           </Text>
           <TextInput
-            className="w-full bg-slate-900 text-white px-4 rounded-lg mt-2 h-14"
+            className="w-full bg-card text-foreground px-4 rounded-lg mt-2 h-14"
             placeholder="Description"
             placeholderTextColor="#94a3b8"
             value={selectedValues.note}
@@ -308,11 +308,11 @@ export default function AddTransactionsForm() {
       <Pressable
         onPress={handleSubmit}
         disabled={isSubmitDisabled}
-        className={`w-full py-4 rounded-lg font-bold text-white shadow-lg flex items-center justify-center gap-2 mt-auto will-change-auto
-                 ${isSubmitDisabled ? "bg-slate-800 text-slate-500 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-500 shadow-indigo-900/50"}`}
+        className={`w-full py-4 rounded-lg font-bold text-foreground shadow-lg flex items-center justify-center gap-2 mt-auto will-change-auto
+                 ${isSubmitDisabled ? "bg-secondary text-muted-foreground cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-500 shadow-indigo-900/50"}`}
       >
         <Text
-          className={`${isSubmitDisabled ? "bg-slate-800 text-slate-500 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-900/50"}`}
+          className={`${isSubmitDisabled ? "bg-secondary text-muted-foreground cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-500 text-foreground shadow-indigo-900/50"}`}
         >
           {loading ? "Saving..." : "Save Transaction"}
         </Text>

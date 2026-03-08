@@ -46,7 +46,7 @@ export default function EmiCard({
   return (
     <View
       // transition here
-      className={`my-3 bg-slate-900 border rounded-2xl p-5  ${isDueToday
+      className={`my-3 bg-card border rounded-2xl p-5  ${isDueToday
         ? "border-rose-500/60 shadow-rose-900/30"
         : isDueSoon
           ? "border-amber-500/40"
@@ -64,7 +64,7 @@ export default function EmiCard({
           </View>
           <View className="min-w-0 flex-1">
             <Text
-              className="font-semibold text-white truncate"
+              className="font-semibold text-foreground truncate"
               numberOfLines={1}
             >
               {emi.name}
@@ -76,7 +76,7 @@ export default function EmiCard({
                   ? "bg-rose-500/20"
                   : isDueSoon
                     ? "bg-amber-500/20"
-                    : "bg-slate-800"
+                    : "bg-secondary"
                   }`}
               >
                 <Calendar
@@ -85,7 +85,7 @@ export default function EmiCard({
                       ? "#fb7185" // text-rose-400
                       : isDueSoon
                         ? "#fbbf24" // text-amber-400
-                        : "#94a3b8" // text-slate-400
+                        : "#94a3b8" // text-muted-foreground
                   }
                   className="w-3 h-3"
                 />
@@ -94,7 +94,7 @@ export default function EmiCard({
                     ? "text-rose-400"
                     : isDueSoon
                       ? "text-amber-400"
-                      : "text-slate-400"
+                      : "text-muted-foreground"
                     }`}
                 >
                   {isDueToday ? "Due Today" : `${ORDINAL(emi.date)} · ${days}d`}
@@ -104,7 +104,7 @@ export default function EmiCard({
               {emi.accountId && (
                 <View className="flex flex-row items-center gap-1">
                   <View className="w-2 h-2 rounded-full bg-green-600" />
-                  <Text className="text-xs text-slate-500">
+                  <Text className="text-xs text-muted-foreground">
                     {emi.accountName}
                   </Text>
                 </View>
@@ -115,7 +115,7 @@ export default function EmiCard({
 
         {/* Right: amount + actions */}
         <View className="flex flex-row items-center gap-2 shrink-0">
-          <Text className="text-white font-bold">
+          <Text className="text-foreground font-bold">
             ₹{formatCurrency(emi.amount)}
           </Text>
           <Pressable
@@ -136,11 +136,11 @@ export default function EmiCard({
                 color={
                   deleteConfirm === emi.id
                     ? "#fb7185" // text-rose-400
-                    : "#64748b" // text-slate-500
+                    : "#64748b" // text-muted-foreground
                 }
               />
             ) : (
-              <Trash color="#64748b" /> // text-slate-500
+              <Trash color="#64748b" /> // text-muted-foreground
             )}
           </Pressable>
         </View>

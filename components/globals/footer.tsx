@@ -11,7 +11,7 @@ export default function Footer() {
   const pathname = usePathname();
 
   return (
-    <View className="absolute bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 pb-safe-area-inset-bottom z-50">
+    <View className="absolute bottom-0 left-0 right-0 bg-card border-t border-slate-800 pb-safe-area-inset-bottom z-50">
       <View className="flex-row justify-evenly items-center h-16 w-full mx-auto px-2 gap-3">
         <Link href={"/" as any}>
           <View className="flex-col items-center justify-center w-16 h-full">

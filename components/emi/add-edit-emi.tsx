@@ -64,9 +64,9 @@ export default function AddEditEmi({ onClose }: { onClose: () => void }) {
   }, []);
   return (
     <View className="flex-1 justify-end bg-black">
-      <View className="w-full bg-slate-900 border border-slate-700 rounded-t-3xl p-6 pb-10 shadow-2xl">
+      <View className="w-full bg-card border border-slate-700 rounded-t-3xl p-6 pb-10 shadow-2xl">
         <View className="flex items-start justify-between mb-6">
-          <Text className="text-lg font-bold text-white">
+          <Text className="text-lg font-bold text-foreground">
             {isEditingEmi ? "Edit EMI" : "Add New EMI"}
           </Text>
           <Pressable className="flex-1" onPress={onClose} />
@@ -74,11 +74,11 @@ export default function AddEditEmi({ onClose }: { onClose: () => void }) {
 
         {/*add/edit form*/}
         <View className="flex-col gap-2 mb-3">
-          <Text className="block text-xs font-medium text-slate-400 mb-1.5 uppercase tracking-wider">
+          <Text className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider">
             EMI NAME
           </Text>
           <TextInput
-            className="w-full bg-slate-800 border rounded-lg px-4 py-3 text-white placeholder-slate-600 outline-none focus:ring-2 focus:ring-indigo-500
+            className="w-full bg-secondary border rounded-lg px-4 py-3 text-foreground placeholder-slate-600 outline-none focus:ring-2 focus:ring-indigo-500
                                 border-slate-700"
             placeholder="e.g. Home Loan, Car Loan…"
             placeholderTextColor="#717182"
@@ -88,12 +88,12 @@ export default function AddEditEmi({ onClose }: { onClose: () => void }) {
         </View>
 
         <View className="flex-col gap-2 mb-3">
-          <Text className="block text-xs font-medium text-slate-400 mb-1.5 uppercase tracking-wider">
+          <Text className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider">
             Monthly Amount
           </Text>
           <TextInput
             inputMode="numeric"
-            className="w-full bg-slate-800 border rounded-lg px-4 py-3 text-white placeholder-slate-600 outline-none focus:ring-2 focus:ring-indigo-500
+            className="w-full bg-secondary border rounded-lg px-4 py-3 text-foreground placeholder-slate-600 outline-none focus:ring-2 focus:ring-indigo-500
                                 border-slate-700"
             placeholder="0.00"
             placeholderTextColor="#717182"
@@ -108,12 +108,12 @@ export default function AddEditEmi({ onClose }: { onClose: () => void }) {
         </View>
 
         <View className="flex-col gap-2 mb-3">
-          <Text className="block text-xs font-medium text-slate-400 mb-1.5 uppercase tracking-wider">
+          <Text className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider">
             Date of deduction
           </Text>
           <TextInput
             inputMode="numeric"
-            className="w-full bg-slate-800 border rounded-lg px-4 py-3 text-white placeholder-slate-600 outline-none focus:ring-2 focus:ring-indigo-500
+            className="w-full bg-secondary border rounded-lg px-4 py-3 text-foreground placeholder-slate-600 outline-none focus:ring-2 focus:ring-indigo-500
                                 border-slate-700"
             placeholder="Number b/w 1-31"
             maxLength={2}
@@ -129,10 +129,10 @@ export default function AddEditEmi({ onClose }: { onClose: () => void }) {
         </View>
 
         <View className="mb-6">
-          <Text className="block text-xs font-medium text-slate-400 mb-1.5 uppercase tracking-wider">
+          <Text className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider">
             Account
           </Text>
-          <View className="w-full border border-slate-700 bg-slate-800 rounded-lg px-4  text-white placeholder-slate-600">
+          <View className="w-full border border-slate-700 bg-secondary rounded-lg px-4  text-foreground placeholder-slate-600">
             <Picker
               selectedValue={emiDetails.accountId}
               onValueChange={(itemValue) =>
@@ -161,7 +161,7 @@ export default function AddEditEmi({ onClose }: { onClose: () => void }) {
           className="bg-indigo-600 p-4 rounded-lg mt-4 active:opacity-80"
           onPress={handleSave}
         >
-          <Text className="text-white text-center font-bold text-lg">
+          <Text className="text-foreground text-center font-bold text-lg">
             {isEditingEmi ? "Save Changes" : "Add EMI"}
           </Text>
         </TouchableOpacity>

@@ -1,12 +1,13 @@
-import { Stack } from "expo-router";
-import "./../global.css";
-import { Suspense, useEffect } from "react";
-import { Text, View } from "react-native";
-import { SQLiteProvider } from "expo-sqlite";
+import { ThemeProvider } from "@/components/theme/theme-context";
 import { db } from "@/db";
-import migrations from "../drizzle/migrations";
-import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import { insertCategories } from "@/db/seed";
+import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
+import { Stack } from "expo-router";
+import { SQLiteProvider } from "expo-sqlite";
+import { Suspense, useEffect } from "react";
+import { Text } from "react-native";
+import migrations from "../drizzle/migrations";
+import "./../global.css";
 
 export default function RootLayout() {
   const { success, error } = useMigrations(db, migrations);
@@ -34,10 +35,12 @@ export default function RootLayout() {
     }
   }, [success, error]);
   return (
-    <Suspense fallback={<Text>Loading...</Text>}>
-      <SQLiteProvider databaseName="expense.db" useSuspense>
-        <Stack screenOptions={{ headerShown: false }} />
-      </SQLiteProvider>
-    </Suspense>
+    <ThemeProvider>
+      <Suspense fallback={<Text>Loading...</Text>}>
+        <SQLiteProvider databaseName="expense.db" useSuspense>
+          <Stack screenOptions={{ headerShown: false }} />
+        </SQLiteProvider>
+      </Suspense>
+    </ThemeProvider>
   );
 }

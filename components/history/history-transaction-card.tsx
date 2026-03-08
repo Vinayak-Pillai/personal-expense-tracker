@@ -30,7 +30,7 @@ export default function HistoryTransactionCard({
   }
 
   return (
-    <View className="bg-slate-900 my-2 border border-slate-800/60 p-4 rounded-2xl flex flex-row items-center justify-between shadow-sm">
+    <View className="bg-card my-2 border border-slate-800/60 p-4 rounded-2xl flex flex-row items-center justify-between shadow-sm">
       <View className="flex flex-row items-center gap-4">
         <View
           className={`w-12 h-12 rounded-full flex items-center justify-center ${transaction.type === 2 ? "bg-emerald-500/10" : "bg-rose-500/10"}`}
@@ -42,17 +42,17 @@ export default function HistoryTransactionCard({
           )}
         </View>
         <View>
-          <Text className="text-white font-medium text-sm">
+          <Text className="text-foreground font-medium text-sm">
             {transaction.categoryName || "Unknown"}
           </Text>
-          <View className="flex flex-row items-center gap-2 text-xs text-slate-500 mt-1">
-            <Text className="bg-slate-800 px-2 py-0.5 rounded text-slate-400">
+          <View className="flex flex-row items-center gap-2 text-xs text-muted-foreground mt-1">
+            <Text className="bg-secondary px-2 py-0.5 rounded text-muted-foreground">
               {transaction.note
                 ? transaction.note
                 : `${TRANSACTION_TYPE[transaction.type as 1 | 2]} ${transaction.type === 2 ? `from ${transaction.categoryName}` : ``}`}
             </Text>
-            <Text className="text-slate-500">•</Text>
-            <Text className="text-slate-500">{transaction.accountName}</Text>
+            <Text className="text-muted-foreground">•</Text>
+            <Text className="text-muted-foreground">{transaction.accountName}</Text>
           </View>
         </View>
       </View>

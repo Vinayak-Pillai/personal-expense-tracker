@@ -49,7 +49,7 @@ export default function RecentTransactions() {
           return (
             <View
               key={item.id}
-              className="my-2 bg-slate-900/50 p-3 rounded-xl border border-slate-800/50 flex-row items-center justify-between"
+              className="my-2 bg-card/50 p-3 rounded-xl border border-slate-800/50 flex-row items-center justify-between"
             >
               <View className="flex-row items-center gap-3">
                 <View
@@ -65,7 +65,7 @@ export default function RecentTransactions() {
                   <Text className="text-slate-200 font-medium text-sm">
                     {item.category || "Transaction"}
                   </Text>
-                  <Text className="text-slate-500 text-sm">{item.date}</Text>
+                  <Text className="text-muted-foreground text-sm">{item.date}</Text>
                 </View>
               </View>
               <Text

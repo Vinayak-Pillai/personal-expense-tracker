@@ -9,9 +9,9 @@ export default function AccountsHeader() {
   return (
     <View className="p-4 pt-2">
       <View className="flex flex-row justify-between items-center mb-6">
-        <Text className="text-2xl font-bold text-white">Accounts</Text>
+        <Text className="text-2xl font-bold text-foreground">Accounts</Text>
         <Pressable
-          className="bg-indigo-600 p-2 rounded-full text-white"
+          className="bg-indigo-600 p-2 rounded-full text-foreground"
           onPress={() => setIsAddAccountVisible(true)}
         >
           <CirclePlus color="#fff" />

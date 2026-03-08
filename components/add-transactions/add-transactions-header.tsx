@@ -8,11 +8,11 @@ export default function AddTransactionsHeader() {
     <View className="p-4 flex flex-row items-center justify-between border-b border-border z-10 w-full pb-6">
       <Pressable
         onPress={() => router.back()}
-        className="p-2 rounded-full hover:bg-slate-800"
+        className="p-2 rounded-full hover:bg-secondary"
       >
         <ChevronLeft color="white" />
       </Pressable>
-      <Text className="text-lg font-semibold text-white">
+      <Text className="text-lg font-semibold text-foreground">
         New Transaction
       </Text>
       <View className="w-10" />

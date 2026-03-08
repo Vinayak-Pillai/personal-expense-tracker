@@ -44,7 +44,7 @@ export default function AddEditAccounts({ onClose }: { onClose?: () => void }) {
       <Pressable className="flex-1" onPress={onClose} />
       <View className="bg-background w-full rounded-t-3xl p-6 pb-12 gap-4">
         <View className="w-12 h-1.5 bg-stat-card-muted/30 rounded-full self-center mb-2" />
-        <Text className="text-2xl font-bold text-white mb-2">
+        <Text className="text-2xl font-bold text-foreground mb-2">
           Add/Edit Accounts
         </Text>
 
@@ -53,7 +53,7 @@ export default function AddEditAccounts({ onClose }: { onClose?: () => void }) {
             Account Name
           </Text>
           <TextInput
-            className="bg-stat-card-bg border border-stat-card-border text-white text-base px-4 py-3 rounded-lg"
+            className="bg-stat-card-bg border border-stat-card-border text-foreground text-base px-4 py-3 rounded-lg"
             placeholder="Savings Account"
             placeholderTextColor="#717182"
             value={accountDetails.name}
@@ -66,7 +66,7 @@ export default function AddEditAccounts({ onClose }: { onClose?: () => void }) {
             Current Balance
           </Text>
           <TextInput
-            className="bg-stat-card-bg border border-stat-card-border text-white text-base px-4 py-3 rounded-lg"
+            className="bg-stat-card-bg border border-stat-card-border text-foreground text-base px-4 py-3 rounded-lg"
             inputMode="numeric"
             placeholder="Current Balance"
             placeholderTextColor="#717182"
@@ -83,7 +83,7 @@ export default function AddEditAccounts({ onClose }: { onClose?: () => void }) {
             <TouchableOpacity
               onPress={() => handleInputChange("type", "CREDIT")}
               className={`rounded-lg px-5 py-2
-            ${accountDetails.type === "CREDIT" ? "bg-linear-to-br from-indigo-600 to-violet-800 text-white shadow-lg shadow-indigo-900/40 border border-indigo-400/30" : "bg-slate-900 border border-slate-800 text-slate-300"}
+            ${accountDetails.type === "CREDIT" ? "bg-linear-to-br from-indigo-600 to-violet-800 text-foreground shadow-lg shadow-indigo-900/40 border border-indigo-400/30" : "bg-card border border-slate-800 text-slate-300"}
             `}
             >
               <Text className="w-full text-slate-200">CREDIT</Text>
@@ -91,7 +91,7 @@ export default function AddEditAccounts({ onClose }: { onClose?: () => void }) {
             <TouchableOpacity
               onPress={() => handleInputChange("type", "DEBIT")}
               className={`rounded-lg px-5 py-2
-          ${accountDetails.type === "DEBIT" ? "bg-linear-to-br from-indigo-600 to-violet-800 text-white shadow-lg shadow-indigo-900/40 border border-indigo-400/30" : "bg-slate-900 border border-slate-800 text-slate-300"}
+          ${accountDetails.type === "DEBIT" ? "bg-linear-to-br from-indigo-600 to-violet-800 text-foreground shadow-lg shadow-indigo-900/40 border border-indigo-400/30" : "bg-card border border-slate-800 text-slate-300"}
           `}
             >
               <Text className="w-full text-slate-200">DEBIT</Text>
@@ -103,7 +103,7 @@ export default function AddEditAccounts({ onClose }: { onClose?: () => void }) {
           className="bg-indigo-600 p-4 rounded-lg mt-4 active:opacity-80"
           onPress={handleSave}
         >
-          <Text className="text-white text-center font-bold text-lg">
+          <Text className="text-foreground text-center font-bold text-lg">
             Save Account
           </Text>
         </TouchableOpacity>

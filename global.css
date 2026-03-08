@@ -45,22 +45,24 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
-    --stat-card-bg: oklch(20.8% 0.042 265.755);
-    --stat-card-border: oklch(27.9% 0.041 260.031);
-    --stat-card-muted: oklch(70.4% 0.04 256.788);
+    --stat-card-bg: oklch(98% 0.01 265);
+    --stat-card-border: oklch(92% 0.02 260);
+    --stat-card-muted: oklch(50% 0.04 256);
     --stat-success: oklch(69.6% 0.17 162.48);
-    --stat-success-text: oklch(76.5% 0.177 163.223);
+    --stat-success-text: oklch(40% 0.15 163);
     --stat-danger: oklch(64.5% 0.246 16.439);
-    --stat-danger-text: oklch(71.2% 0.194 13.428);
+    --stat-danger-text: oklch(40% 0.20 13);
     --action-invest-icon: oklch(67.3% 0.182 276.935);
-    --action-invest-border: oklch(58.5% 0.233 277.117);
-    --action-invest-bg: oklch(51.1% 0.262 276.966);
+    --action-invest-border: oklch(85% 0.1 277);
+    --action-invest-bg: oklch(92% 0.05 277);
     --action-accounts-icon: oklch(82.8% 0.189 84.429);
-    --action-accounts-border: oklch(76.9% 0.188 70.08);
-    --action-accounts-bg: oklch(66.6% 0.179 58.318);
+    --action-accounts-border: oklch(88% 0.1 70);
+    --action-accounts-bg: oklch(95% 0.05 58);
     --action-more-icon: oklch(78.9% 0.154 211.53);
-    --action-more-border: oklch(71.5% 0.143 215.221);
-    --action-more-bg: oklch(60.9% 0.126 221.723);
+    --action-more-border: oklch(85% 0.1 215);
+    --action-more-bg: oklch(95% 0.05 221);
+    --wallet-icon-bg: oklch(92% 0.05 250);
+    --wallet-icon-color: oklch(45% 0.2 260);
 }
 
 .dark {
@@ -114,6 +116,8 @@
     --action-more-icon: oklch(78.9% 0.154 211.53);
     --action-more-border: oklch(71.5% 0.143 215.221);
     --action-more-bg: oklch(60.9% 0.126 221.723);
+    --wallet-icon-bg: oklch(27% 0.03 260);
+    --wallet-icon-color: oklch(75% 0.15 260);
 }
 
 @theme inline {
@@ -171,6 +175,8 @@
     --color-action-more-icon: var(--action-more-icon);
     --color-action-more-border: var(--action-more-border);
     --color-action-more-bg: var(--action-more-bg);
+    --color-wallet-icon-bg: var(--wallet-icon-bg);
+    --color-wallet-icon-color: var(--wallet-icon-color);
 }
 
 @layer base {

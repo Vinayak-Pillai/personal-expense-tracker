@@ -48,23 +48,23 @@ export default function AccountsList() {
                 // add transition-all
                 className={`
                mb-5 p-5 rounded-2xl relative overflow-hidden
-              ${item.isPrimary ? "bg-linear-to-br from-indigo-600 to-violet-800 text-white shadow-lg shadow-indigo-900/40 border border-indigo-400/30" : "bg-slate-900 border border-slate-800 text-slate-300"}
+              ${item.isPrimary ? "bg-linear-to-br from-indigo-600 to-violet-800 text-foreground shadow-lg shadow-indigo-900/40 border border-indigo-400/30" : "bg-card border border-slate-800 text-slate-300"}
             `}
               >
                 <View className="flex flex-row justify-between items-start mb-8">
                   <View
-                    className={`p-2 rounded-lg ${item.isPrimary ? "bg-white/20" : "bg-slate-800"}`}
+                    className={`p-2 rounded-lg ${item.isPrimary ? "bg-white/20" : "bg-secondary"}`}
                   >
                     <Wallet
                       className={`w-6 h-6`}
                       color={item.isPrimary ? "#fff" : "#94A3B8"}
                     />
-                    <Text className="mt-2.5 mb-0.5 bg-white/20 px-2 py-1 rounded-full text-[12px] text-white font-bold uppercase tracking-wider backdrop-blur-sm">
+                    <Text className="mt-2.5 mb-0.5 bg-white/20 px-2 py-1 rounded-full text-[12px] text-foreground font-bold uppercase tracking-wider backdrop-blur-sm">
                       {item.type}
                     </Text>
                   </View>
                   {item.isPrimary && (
-                    <Text className="bg-white/20 px-2 py-1 rounded-full text-[12px] text-white font-bold uppercase tracking-wider backdrop-blur-sm">
+                    <Text className="bg-white/20 px-2 py-1 rounded-full text-[12px] text-foreground font-bold uppercase tracking-wider backdrop-blur-sm">
                       Primary
                     </Text>
                   )}
@@ -72,15 +72,15 @@ export default function AccountsList() {
 
                 <View>
                   <Text
-                    className={`text-sm font-medium mb-1 ${item.isPrimary ? "text-indigo-100" : "text-slate-500"}`}
+                    className={`text-sm font-medium mb-1 ${item.isPrimary ? "text-indigo-100" : "text-muted-foreground"}`}
                   >
                     Current Balance
                   </Text>
-                  <Text className="text-3xl font-bold tracking-tight text-white">
+                  <Text className="text-3xl font-bold tracking-tight text-foreground">
                     ₹ {formatCurrency(Number(item.balance))}
                   </Text>
                   <Text
-                    className={`text-sm mt-1 ${item.isPrimary ? "text-indigo-200" : "text-slate-400"}`}
+                    className={`text-sm mt-1 ${item.isPrimary ? "text-indigo-200" : "text-muted-foreground"}`}
                   >
                     {item.name}
                   </Text>
