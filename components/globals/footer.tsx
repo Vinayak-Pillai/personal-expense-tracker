@@ -54,28 +54,28 @@ export default function Footer() {
           <View className="flex-col items-center justify-center w-16 h-full">
             <ChartPie
               className="mb-1 size-5"
-              color={pathname === "/investments" ? "#818cf8" : "#94a3b8"}
+              color={pathname === "/emi" ? "#818cf8" : "#94a3b8"}
             />
             <Text
               className="text-[10px] font-medium"
               style={{
-                color: pathname === "/investments" ? "#818cf8" : "#94a3b8",
+                color: pathname === "/emi" ? "#818cf8" : "#94a3b8",
               }}
             >
               {"EMI's"}
             </Text>
           </View>
         </Link>
-        <Link href={"/transactions" as any}>
+        <Link href={"/history" as any}>
           <View className="flex-col items-center justify-center w-16 h-full">
             <ArrowRightLeft
               className="mb-1 size-5"
-              color={pathname === "/transactions" ? "#818cf8" : "#94a3b8"}
+              color={pathname === "/history" ? "#818cf8" : "#94a3b8"}
             />
             <Text
               className="text-[10px] font-medium"
               style={{
-                color: pathname === "/transactions" ? "#818cf8" : "#94a3b8",
+                color: pathname === "/history" ? "#818cf8" : "#94a3b8",
               }}
             >
               History

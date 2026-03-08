@@ -171,18 +171,16 @@ export default function AddTransactionsForm() {
           <Pressable
             key={item.id}
             onPress={() => handleFormChange("type", item.id)}
-            className={`flex-1 py-3 rounded-lg items-center justify-center will-change-variable ${
-              selectedValues.type === item.id
-                ? item.styling
-                : "hover:bg-slate-800"
-            }`}
+            className={`flex-1 py-3 rounded-lg items-center justify-center will-change-auto ${selectedValues.type === item.id
+              ? item.styling
+              : "hover:bg-slate-800"
+              }`}
           >
             <Text
-              className={`text-sm font-semibold will-change-variable ${
-                selectedValues.type === item.id
-                  ? "text-white"
-                  : "text-slate-400"
-              }`}
+              className={`text-sm font-semibold will-change-variable ${selectedValues.type === item.id
+                ? "text-white"
+                : "text-slate-400"
+                }`}
             >
               {item.name}
             </Text>

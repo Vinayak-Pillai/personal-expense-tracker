@@ -2,8 +2,6 @@ import { db } from "@/db";
 import { emi, TAddEmi, TSelectEmi } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { createContext, useContext, useState } from "react";
-import { Modal } from "react-native";
-import AddEditEmi from "./add-edit-emi";
 
 type TEmiContext = {
   isEditingEmi: boolean;
@@ -80,16 +78,6 @@ export function EmiProvider({ children }: { children: React.ReactNode }) {
       }}
     >
       {children}
-      {isEditingEmi && (
-        <Modal
-          visible={isEditingEmi}
-          animationType="slide"
-          transparent={true}
-          onRequestClose={handleEditEmi}
-        >
-          <AddEditEmi onClose={handleEditEmi} />
-        </Modal>
-      )}
     </EmiContext.Provider>
   );
 }

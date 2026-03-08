@@ -26,3 +26,8 @@ export const INITIAL_TRANSACTIONS: Transactions[] = [
     date: new Date(Date.now() - 86400000 * 1).toISOString(),
   },
 ];
+
+export const TRANSACTION_TYPE = {
+  1: "Expense",
+  2: "Income",
+};

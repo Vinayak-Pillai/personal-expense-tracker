@@ -1,6 +1,7 @@
 import EmiCard from "@/components/emi/emi-card";
 import { EmiProvider } from "@/components/emi/emi-context";
 import EmiHeader from "@/components/emi/emi-header";
+import EmiModal from "@/components/emi/emi-modal";
 import EmiSummaryCard from "@/components/emi/emi-summary-card";
 import SafeContainer from "@/components/globals/SafeContainer";
 import { db } from "@/db";
@@ -98,6 +99,7 @@ export default function EMI() {
             );
           }}
         />
+        <EmiModal />
       </EmiProvider>
     </SafeContainer>
   );
