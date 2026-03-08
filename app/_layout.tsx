@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 import "./../global.css";
 import { Suspense, useEffect } from "react";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 import { SQLiteProvider } from "expo-sqlite";
 import { db } from "@/db";
 import migrations from "../drizzle/migrations";
